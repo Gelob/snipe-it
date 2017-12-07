@@ -22,8 +22,9 @@ before_script:
   - mysql -e 'CREATE USER "travis'@'localhost";'
   - mysql -e 'GRANT ALL PRIVILEGES ON * . * TO "travis'@'localhost";'
   - mysql -e 'FLUSH PRIVILEGES;'
+  - echo "memory_limit=1200M" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - composer self-update
-  - php -d memory_limit=-1 composer install -n --prefer-source
+  - composer install -n --prefer-source
   - chmod -R 777 storage
   - php artisan migrate --env=testing-ci --database=mysql --force
   - ./vendor/bin/codecept build
