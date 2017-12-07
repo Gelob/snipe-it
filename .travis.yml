@@ -23,7 +23,7 @@ before_script:
   - mysql -e 'GRANT ALL PRIVILEGES ON * . * TO "travis'@'localhost";'
   - mysql -e 'FLUSH PRIVILEGES;'
   - composer self-update
-  - composer install -n --prefer-source
+  - php -d memory_limit=-1 composer.phar install -n --prefer-source
   - chmod -R 777 storage
   - php artisan migrate --env=testing-ci --database=mysql --force
   - ./vendor/bin/codecept build
